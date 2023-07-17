@@ -4,7 +4,8 @@ import Search from "./Search";
 import Main from "./Main";
 import MoviesList from "./MoviesList";
 import MoviesWatched from "./MoviesWatched";
-import Button from "./Button";
+import MoviesBox from "./MoviesBox";
+import MoviesSummary from "./MoviesSummary";
 const tempMovieData = [
   {
     imdbID: "tt1375666",
@@ -63,8 +64,13 @@ export default function App() {
         <Search query={query} setQuery={setQuery} />
       </HeaderNav>
       <Main>
-        <MoviesList movies={movies} />
-        <MoviesWatched watched={watched} />
+        <MoviesBox>
+          <MoviesList movies={movies} />
+        </MoviesBox>
+        <MoviesBox>
+          <MoviesSummary watched={watched} />
+          <MoviesWatched watched={watched} />
+        </MoviesBox>
       </Main>
     </>
   );

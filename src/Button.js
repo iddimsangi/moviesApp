@@ -1,10 +1,10 @@
-function Button({ children, isOpen1, setIsOpen1 }) {
+function Button({ isOpen, setIsOpen }) {
   return (
     <button
       className="btn-toggle"
-      onClick={() => setIsOpen1((open) => !isOpen1)}
+      onClick={() => setIsOpen((isOpen) => !isOpen)}
     >
-      {isOpen1 ? "–" : "+"}
+      {isOpen ? "–" : "+"}
     </button>
   );
 }

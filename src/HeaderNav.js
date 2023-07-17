@@ -1,14 +1,11 @@
+import Logo from "./Logo";
+import MoviesResults from "./MoviesResults";
 function HeaderNav({ children, movies }) {
   return (
     <nav className="nav-bar">
-      <div className="logo">
-        <span role="img">🍿</span>
-        <h1>usePopcorn</h1>
-      </div>
+      <Logo />
       {children}
-      <p className="num-results">
-        Found <strong>{movies.length}</strong> results
-      </p>
+      <MoviesResults movies={movies} />
     </nav>
   );
 }
