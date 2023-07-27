@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import HeaderNav from "./HeaderNav";
 import Search from "./Search";
 import Main from "./Main";
@@ -52,11 +52,21 @@ const tempWatchedData = [
     userRating: 9,
   },
 ];
-
+const KEY = "cb0e6f6d";
 export default function App() {
   const [query, setQuery] = useState("");
-  const [movies, setMovies] = useState(tempMovieData);
+  const [movies, setMovies] = useState([]);
   const [watched, setWatched] = useState(tempWatchedData);
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(
+        `http://www.omdbapi.com/?apikey=${KEY}&s=Inception`
+      );
+      const data = await response.json();
+      setMovies(data.Search);
+    };
+    fetchData();
+  }, []);
 
   return (
     <>
