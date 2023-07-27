@@ -6,6 +6,7 @@ import MoviesList from "./MoviesList";
 import MoviesWatched from "./MoviesWatched";
 import MoviesBox from "./MoviesBox";
 import MoviesSummary from "./MoviesSummary";
+import Loader from "./Loader";
 const tempMovieData = [
   {
     imdbID: "tt1375666",
@@ -57,12 +58,14 @@ export default function App() {
   const [query, setQuery] = useState("");
   const [movies, setMovies] = useState([]);
   const [watched, setWatched] = useState(tempWatchedData);
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
         `http://www.omdbapi.com/?apikey=${KEY}&s=Inception`
       );
       const data = await response.json();
+      setIsLoading(!isLoading);
       setMovies(data.Search);
     };
     fetchData();
@@ -75,7 +78,7 @@ export default function App() {
       </HeaderNav>
       <Main>
         <MoviesBox>
-          <MoviesList movies={movies} />
+          {isLoading ? <Loader /> : <MoviesList movies={movies} />}
         </MoviesBox>
         <MoviesBox>
           <MoviesSummary watched={watched} />
