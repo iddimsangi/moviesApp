@@ -7,6 +7,7 @@ import MoviesWatched from "./MoviesWatched";
 import MoviesBox from "./MoviesBox";
 import MoviesSummary from "./MoviesSummary";
 import Loader from "./Loader";
+import ErrorMessage from "./ErrorMessage";
 const tempMovieData = [
   {
     imdbID: "tt1375666",
@@ -55,18 +56,33 @@ const tempWatchedData = [
 ];
 const KEY = "cb0e6f6d";
 export default function App() {
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState("Interceptor");
   const [movies, setMovies] = useState([]);
   const [watched, setWatched] = useState(tempWatchedData);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState("");
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(
-        `http://www.omdbapi.com/?apikey=${KEY}&s=Inception`
-      );
-      const data = await response.json();
-      setIsLoading(!isLoading);
-      setMovies(data.Search);
+      try {
+        const response = await fetch(
+          `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`
+        );
+        console.log(response);
+        //Incase Network disconnected before fetching all the data
+        if (!response.ok)
+          throw new Error("Something went wrong with the fetching!");
+        const data = await response.json();
+        console.log(data);
+        //Incase we fetched data but the data doesn't exist(data.Response === False)
+        if (data.Response === "False") throw new Error(data.Error);
+        setMovies(data.Search);
+      } catch (err) {
+        console.error(err.message);
+        console.log(err.message);
+        setError(err.message);
+      } finally {
+        setIsLoading(!isLoading);
+      }
     };
     fetchData();
   }, []);
@@ -79,6 +95,7 @@ export default function App() {
       <Main>
         <MoviesBox>
           {isLoading ? <Loader /> : <MoviesList movies={movies} />}
+          {!isLoading && error && <ErrorMessage errorMsg={error} />}
         </MoviesBox>
         <MoviesBox>
           <MoviesSummary watched={watched} />
