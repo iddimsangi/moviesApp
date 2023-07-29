@@ -1,6 +1,6 @@
-function Movie({ movie }) {
+function Movie({ movie, getMovieId }) {
   return (
-    <li key={movie.imdbID}>
+    <li key={movie.imdbID} onClick={() => getMovieId(movie.imdbID)}>
       <img src={movie.Poster} alt={`${movie.Title} poster`} />
       <h3>{movie.Title}</h3>
       <div>

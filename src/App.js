@@ -60,6 +60,7 @@ export default function App() {
   const [movies, setMovies] = useState([]);
   const [watched, setWatched] = useState(tempWatchedData);
   const [isLoading, setIsLoading] = useState(true);
+  const [selectedMovieID, setSelectedMovieID] = useState(null);
   const [error, setError] = useState("");
   useEffect(() => {
     const fetchData = async () => {
@@ -86,7 +87,12 @@ export default function App() {
     };
     fetchData();
   }, []);
-
+  const getMovieId = (mov_ID) => {
+    setSelectedMovieID((selectedMovieID) =>
+      mov_ID !== selectedMovieID ? mov_ID : null
+    );
+  };
+  console.log(selectedMovieID);
   return (
     <>
       <HeaderNav movies={movies}>
@@ -94,7 +100,11 @@ export default function App() {
       </HeaderNav>
       <Main>
         <MoviesBox>
-          {isLoading ? <Loader /> : <MoviesList movies={movies} />}
+          {isLoading ? (
+            <Loader />
+          ) : (
+            <MoviesList movies={movies} getMovieId={getMovieId} />
+          )}
           {!isLoading && error && <ErrorMessage errorMsg={error} />}
         </MoviesBox>
         <MoviesBox>

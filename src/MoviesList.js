@@ -1,9 +1,9 @@
 import Movie from "./Movie";
-function MoviesList({ movies }) {
+function MoviesList({ movies, getMovieId }) {
   return (
-    <ul className="list">
+    <ul className="list list-movies">
       {movies?.map((movie) => (
-        <Movie movie={movie} />
+        <Movie getMovieId={getMovieId} movie={movie} />
       ))}
     </ul>
   );
