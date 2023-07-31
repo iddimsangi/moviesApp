@@ -94,6 +94,9 @@ export default function App() {
       mov_ID !== selectedMovieID ? mov_ID : null
     );
   };
+  const onCloseMovie = () => {
+    setSelectedMovieID(null);
+  };
   console.log(selectedMovieID);
   return (
     <>
@@ -111,7 +114,11 @@ export default function App() {
         </MoviesBox>
         <MoviesBox>
           {selectedMovieID ? (
-            <MoviesDetails selectedMovieID={selectedMovieID} KEY={KEY} />
+            <MoviesDetails
+              selectedMovieID={selectedMovieID}
+              KEY={KEY}
+              onCloseMovie={onCloseMovie}
+            />
           ) : (
             <>
               <MoviesSummary watched={watched} />
