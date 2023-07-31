@@ -8,6 +8,7 @@ import MoviesBox from "./MoviesBox";
 import MoviesSummary from "./MoviesSummary";
 import Loader from "./Loader";
 import ErrorMessage from "./ErrorMessage";
+import MoviesDetails from "./MoviesDetails";
 const tempMovieData = [
   {
     imdbID: "tt1375666",
@@ -88,6 +89,7 @@ export default function App() {
     fetchData();
   }, []);
   const getMovieId = (mov_ID) => {
+    console.log(mov_ID);
     setSelectedMovieID((selectedMovieID) =>
       mov_ID !== selectedMovieID ? mov_ID : null
     );
@@ -108,8 +110,14 @@ export default function App() {
           {!isLoading && error && <ErrorMessage errorMsg={error} />}
         </MoviesBox>
         <MoviesBox>
-          <MoviesSummary watched={watched} />
-          <MoviesWatched watched={watched} />
+          {selectedMovieID ? (
+            <MoviesDetails selectedMovieID={selectedMovieID} KEY={KEY} />
+          ) : (
+            <>
+              <MoviesSummary watched={watched} />
+              <MoviesWatched watched={watched} />
+            </>
+          )}
         </MoviesBox>
       </Main>
     </>
