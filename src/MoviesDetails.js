@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Loader from "./Loader";
-
+import StarRating from "./StarRating";
 function MoviesDetails({ selectedMovieID, KEY, onCloseMovie }) {
   const [isLoading, setIsLoading] = useState(true);
   const [selectedMovie, setselectedMovie] = useState({});
@@ -55,6 +55,13 @@ function MoviesDetails({ selectedMovieID, KEY, onCloseMovie }) {
             </div>
           </header>
           <section>
+            <div className="rating">
+              <StarRating
+                maxRating={10}
+                size={24}
+                // onSetRating={setUserRating}
+              />
+            </div>
             {/* <div className="rating">
                   {!isWatched ? (
                     <>

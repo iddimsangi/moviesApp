@@ -6,7 +6,7 @@ function Star({ onRate, full }) {
           xmlns="http://www.w3.org/2000/svg"
           width="16"
           height="16"
-          fill="currentColor"
+          fill="yellow"
           class="bi bi-star-fill"
           viewBox="0 0 16 16"
           style={{ cursor: "pointer" }}
@@ -20,7 +20,7 @@ function Star({ onRate, full }) {
           xmlns="http://www.w3.org/2000/svg"
           width="16"
           height="16"
-          fill="currentColor"
+          fill="yellow"
           class="bi bi-star"
           viewBox="0 0 16 16"
           onClick={onRate}
